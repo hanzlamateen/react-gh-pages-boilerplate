@@ -31,31 +31,32 @@ jobs:
           name: production-files
           path: ./dist
 
-  deploy:
-    name: Deploy
+  check-deploy:
+    name: Check Deploy
     needs: build
     runs-on: ubuntu-latest
 
     steps:
       - name: Check for Secret availability
-        shell: bash
         run: |
-          if [ "${{ secrets.GITHUB_TOKEN }}" != '' ]; then
-            echo "available=false" >> $GITHUB_OUTPUT;
-          else
-            echo "available=true" >> $GITHUB_OUTPUT;
+          if [ ${{ secrets.GITHUB_TOKEN }} != '' ]; then
+            echo "ok=enabled" >> $GITHUB_OUTPUT
           fi
 
+  deploy:
+    name: Deploy
+    needs: check-deploy
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Download artifact
         uses: actions/download-artifact@v3
-        if: ${{ steps.secret-check.outputs.available == 'true' }}
         with:
           name: production-files
           path: ./dist
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ steps.secret-check.outputs.available == 'true' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
