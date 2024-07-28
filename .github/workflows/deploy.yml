@@ -49,7 +49,7 @@ jobs:
     name: Deploy
     needs: check-deploy
     runs-on: ubuntu-latest
-    if: ${{ steps.check-deploy.outputs.available == 'enabled' }}
+    if: ${{ needs.check-deploy.outputs.available == 'enabled' }}
 
     steps:
       - name: Download artifact
