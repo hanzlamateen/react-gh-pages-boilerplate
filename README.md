@@ -12,7 +12,6 @@
 
 [![Build Status][github-actions-status]][github-actions-url]
 [![Github Tag][github-tag-image]][github-tag-url]
-[![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/Fjy3vfgy5q)
 
 [![OpenCollective](https://opencollective.com/react-gh-pages-boilerplate/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/react-gh-pages-boilerplate/sponsors/badge.svg)](#sponsors)
