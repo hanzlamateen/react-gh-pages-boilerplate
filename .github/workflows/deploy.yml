@@ -35,18 +35,21 @@ jobs:
     name: Check Deploy
     needs: build
     runs-on: ubuntu-latest
-
+    outputs:
+      ok: ${{ steps.check-secrets-run.outputs.ok }}
     steps:
       - name: Check for Secret availability
+        id: check-secrets-run
         run: |
           if [ ${{ secrets.GITHUB_TOKEN }} != '' ]; then
-            echo "ok=enabled" >> $GITHUB_OUTPUT
+            echo "available=enabled" >> $GITHUB_OUTPUT
           fi
 
   deploy:
     name: Deploy
     needs: check-deploy
     runs-on: ubuntu-latest
+    if: ${{ steps.check-deploy.outputs.available == 'enabled' }}
 
     steps:
       - name: Download artifact
