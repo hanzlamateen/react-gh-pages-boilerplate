@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Poppins';
+}
+
+.prose {
+  max-width: none;
+}
+
+.prose img {
+  margin: 0px;
+}
+
+/* .navbar {
+  box-shadow: 0px 25px 23px 0px rgba(0, 0, 0, 0.1);
+} */
