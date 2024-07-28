@@ -41,16 +41,21 @@ jobs:
         shell: bash
         run: |
           if [ "${{ secrets.GITHUB_TOKEN }}" != '' ]; then
-            echo "ok=enabled" >> $GITHUB_OUTPUT
+            echo "available=false" >> $GITHUB_OUTPUT;
+          else
+            echo "available=true" >> $GITHUB_OUTPUT;
           fi
+
       - name: Download artifact
         uses: actions/download-artifact@v3
+        if: ${{ steps.secret-check.outputs.available == 'true' }}
         with:
           name: production-files
           path: ./dist
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
+        if: ${{ steps.secret-check.outputs.available == 'true' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
