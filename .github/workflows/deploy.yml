@@ -41,7 +41,7 @@ jobs:
       - name: Check for Secret availability
         id: check-secrets-run
         run: |
-          if [ ${{ secrets.GITHUB_TOKEN }} != '' ]; then
+          if [ ${{ secrets.GH_PAGE_DEPLOY }} == 'true' ]; then
             echo "available=enabled" >> $GITHUB_OUTPUT
           fi
 
